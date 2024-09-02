@@ -1,9 +1,10 @@
 let playerInput = prompt("Your choice (rock, paper, scissors) ?").toLowerCase();
 
 function getPlayerChoice(playerInput) {
-    if (playerInput === "rock" || playerInput === "paper" || playerInput === "scissors") {
+    if (playerInput === "rock" || playerInput === "paper" || playerInput === "scissors" || playerInput === "bomb") {
         return playerInput;
-    } else {
+    }
+    else {
         return console.error("Error: Please enter the correct information");
     }
 }
@@ -23,7 +24,7 @@ function getComputerChoice() {
 function findWinner(playerChoice, computerChoice) {
     if ((computerChoice === "rock" && playerChoice === "paper") ||
         (computerChoice === "paper" && playerChoice === "scissors") ||
-        (computerChoice === "scissors" && playerChoice === "rock")) {
+        (computerChoice === "scissors" && playerChoice === "rock") || (playerChoice === "bomb")) {
         return console.log("Won");
     } else if (computerChoice === playerChoice) {
         return console.log("Tied");
