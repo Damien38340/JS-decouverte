@@ -11,56 +11,65 @@
 
         /* Section 1 */   
 
-        var name = "Joe";
-        var city = 'London';
-        var age = 32;
-        var isRed = true;
-        var isOld = age > 80;
+        var name = "Joe"; //je déclare une variable nommée name qui prend pour valeur la chaîne de caractères Joe
+        var city = 'London'; //je déclare une variable nommée city qui prend pour valeur la chaîne de caractères London
+        var age = 32; //je déclare une variable nommée age qui prend pour valeur l'entier 32
+        var isRed = true; //je déclare une variable nommée isRed qui prend pour valeur le booléen true
+        var isOld = age > 80; //je déclare une variable nommée isOld qui prend pour valeur la variable age inférieure à un entier
 
-        var previousJobs = ['lawyer', 'developper', 'Professionnal climber'];
+        var previousJobs = ['lawyer', 'developper', 'Professionnal climber']; //je déclare une variable nommée previousJobs qui prend pour valeur un tableau composé de 3 strings
 
-        function info(height, weight) {
+        function info(height, weight) { //fonction nommée info qui a comme paramètres height et weight
             if (height > 180) {
-                console.log('Vous êtes grand');
+                console.log('Vous êtes grand'); // si la valeur de height est plus grande que 180 alors cette string s'affichera
             }
             if (weight < 0) {
-                console.log('oups, there is a problem');
+                console.log('oups, there is a problem'); // si la valeur de weight est inférieure à 0 alors cette string s'affichera
             } else if ( weight < 15) {
-                console.log('Are you that slim ?')
+                console.log('Are you that slim ?') // si la valeur de weight est inférieure à 15 alors cette string s'affichera
             } else {
-                console.log('Good !')
+                console.log('Good !') // si toutes les conditions précédentes ne sont pas vraies, alors cette stringe s'affichera
             }
         }
 
-        info(165, 45);
+        info(165, 45); //on appelle la fonction info en lui indiquant les deux attributs
 
-        var myHeight = 175;
-        var myWeight = 86;
+        var myHeight = 175; // variable avec valeur entier
+        var myWeight = 86; // variable avec valeur entier
 
-        info(myHeight, myWeight);
+        info(myHeight, myWeight); //fonction avec attributs deux variables
 
-        info(myHeight + 15, myWeight - 100);
+        info(myHeight + 15, myWeight - 100); //fonction avec attributs une opération d'entiers et de variables
 
-        function toUpper(variable) {
+        function toUpper(variable) { // fonction pour mettre le paramètre en majuscule
             return variable.toUpperCase();
         }
 
-        var upperName = toUpper(name);
+        var upperName = toUpper(name); // déclaration d'une variable pour utiliser la fonction qui traduit en majuscule
 
         for (i = 0; i < 3; i = i + 1) {
-            console.log(previousJobs[i]);
+            console.log(previousJobs[i]); // boucle for qui parcourt le tableau previousJobs et affiche toutes ses données
         }
 
         /* Section 2: */
 
-        // afficher la ville dans laquele Joe vit.     
+        // afficher la ville dans laquelle Joe vit.
+
+        console.log(city);
 
         // afficher si Joe est roux ou pas.
+        if (isRed){
+            console.log("Joe is red");}
+else {
+                console.log("Joe is not red");
+        }
+
 
         /* Section 3 */
 
-        // console.log(myVariable);
-
+        console.log(myVariable);
+//Uncaught ReferenceError: myVariable is not defined
+        //Cette variable n'a pas été déclaré
         </script>
 
     </body>
