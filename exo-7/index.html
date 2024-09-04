@@ -1,16 +1,48 @@
 <!doctype html>
 <html lang="fr">
 
-  <head>
+<head>
     <meta charset="utf-8">
-  </head>
+    <title>Exercice 7</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-  <body>
-    <div class="container">
-						<h1>Exercice 7</h1>
-				</div>
-    <script src="datas.js"></script>
-    <script src="exo7.js"></script>
-  </body>
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="container">
+    <h1>Exercice 7</h1>
+    <br>
+    <br>
+    <!-- Input and Button -->
+    <textarea id="type-input" rows="2" cols="30" placeholder="Enter product type..."></textarea>
+    <button id="filter-button">Filter Products</button>
+
+    <table id="data-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Color</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<script src="datas.js"></script>
+<script src="exo7.js"></script>
+</body>
 
 </html>
