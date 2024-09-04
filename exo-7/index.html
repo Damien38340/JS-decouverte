@@ -15,6 +15,9 @@
             padding: 8px;
             text-align: left;
         }
+        .out-of-stock {
+            background-color: #4682b4; /* Steel blue background */
+            color: #ffffff; /* White text color */        }
     </style>
 
 </head>
@@ -27,6 +30,7 @@
     <!-- Input and Button -->
     <textarea id="type-input" rows="2" cols="30" placeholder="Enter product type..."></textarea>
     <button id="filter-button">Filter Products</button>
+    <input type="checkbox" id="stock"> <label for="stock">Show out-of-stock items</label>
 
     <table id="data-table">
         <thead>

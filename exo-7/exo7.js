@@ -49,6 +49,11 @@ function displayProducts(products) {
         colorCell.textContent = item.color || 'N/A';  // If color is not defined
         row.appendChild(colorCell);
 
+        // color the out-of-stock items
+        if (item.quantity === 0) {
+            row.classList.add('out-of-stock');
+        }
+
         // Append row to table body
         tableBody.appendChild(row);
     });
@@ -61,11 +66,19 @@ displayProducts(jsonDatas);
 document.addEventListener('DOMContentLoaded', () => {
     const filterButton = document.querySelector('#filter-button');
     const typeInput = document.querySelector('#type-input');
+    let showOutOfStock = document.querySelector('#stock');
 
     function filterProducts() {
         const type = typeInput.value.trim().toLowerCase();
-        const filteredProducts = jsonDatas.filter(item => item.type.toLowerCase() === type);
-        document.getElementById("data-table").innerHTML = "";
+        let filteredProducts = jsonDatas;
+        if (type !== "") {
+            filteredProducts = filteredProducts.filter(item => item.type.toLowerCase() === type);
+        }
+
+        if (!showOutOfStock.checked) {
+            filteredProducts = filteredProducts.filter(item => item.quantity > 0);
+        }
+
         document.getElementById("data-table").innerHTML = "<tr>\n" +
             "            <th>Name</th>\n" +
             "            <th>Type</th>\n" +
@@ -79,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterButton.addEventListener('click', filterProducts)
     typeInput.addEventListener('input', filterProducts);
+    showOutOfStock.addEventListener('change', filterProducts);
 });
 
 const input = document.getElementById('type-input');
