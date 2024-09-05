@@ -18,9 +18,16 @@ for (let product of jsonDatas) {
 //     console.log(jsonDatas[key]);
 // }
 
+let isInitialLoad = true;
+
 // Function to populate table
 function displayProducts(products) {
     const tableBody = document.querySelector('#data-table');
+
+    if (!isInitialLoad) {
+        // Clear existing table rows if not the initial load
+        tableBody.innerHTML = '';
+    }
 
     products.forEach(item => {
         let row = document.createElement('tr');
@@ -57,16 +64,21 @@ function displayProducts(products) {
         // Append row to table body
         tableBody.appendChild(row);
     });
+    isInitialLoad = false;
 }
-
-// Call the function to populate the table when the page loads
+// Initial call to display all products
 displayProducts(jsonDatas);
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    const filterButton = document.querySelector('#filter-button');
     const typeInput = document.querySelector('#type-input');
     let showOutOfStock = document.querySelector('#stock');
+    let sortByNameAsc = document.querySelector('#sortByNameAsc');
+    let sortByNameDesc = document.querySelector('#sortByNameDesc');
+    let sortByPriceAsc = document.querySelector('#sortByPriceAsc');
+    let sortByPriceDesc = document.querySelector('#sortByPriceDesc');
+
+    let currentSortOrder = "";
+
 
     function filterProducts() {
         const type = typeInput.value.trim().toLowerCase();
@@ -79,6 +91,19 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredProducts = filteredProducts.filter(item => item.quantity > 0);
         }
 
+        if (currentSortOrder === 'name asc') {
+            filteredProducts = filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        if (currentSortOrder === 'name desc') {
+            filteredProducts = filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+        }
+        if (currentSortOrder === 'price asc') {
+            filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
+        }
+        if (currentSortOrder === 'price desc') {
+            filteredProducts = filteredProducts.sort((a, b) => b.price - a.price);
+        }
         document.getElementById("data-table").innerHTML = "<tr>\n" +
             "            <th>Name</th>\n" +
             "            <th>Type</th>\n" +
@@ -90,10 +115,49 @@ document.addEventListener('DOMContentLoaded', () => {
         displayProducts(filteredProducts);
     }
 
-    filterButton.addEventListener('click', filterProducts)
     typeInput.addEventListener('input', filterProducts);
     showOutOfStock.addEventListener('change', filterProducts);
+    sortByNameAsc.addEventListener('click', () => {
+        currentSortOrder = 'name asc';
+        filterProducts()
+    });
+    sortByNameDesc.addEventListener('click', () => {
+        currentSortOrder = 'name desc';
+        filterProducts()
+    });
+    sortByPriceAsc.addEventListener('click', () => {
+        currentSortOrder = 'price asc';
+        filterProducts()
+    });
+    sortByPriceDesc.addEventListener('click', () => {
+        currentSortOrder = 'price desc';
+        filterProducts()
+    });
 });
+
+function storeInput(){
+
+    const name = document.getElementById("name").value;
+    const type = document.getElementById("type").value;
+    const description = document.getElementById("description").value;
+    const price = document.getElementById("price").value;
+    const quantity = document.getElementById("quantity").value;
+    const color = document.getElementById("color").value;
+
+    const newItem = {
+        name: name,
+        type: type,
+        description: description,
+        price: price,
+        quantity: quantity,
+        color: color
+    };
+
+    jsonDatas.push(newItem);
+    displayProducts(jsonDatas);
+    document.getElementById("Add item").reset();
+
+}
 
 const input = document.getElementById('type-input');
 input.addEventListener('input', e => {

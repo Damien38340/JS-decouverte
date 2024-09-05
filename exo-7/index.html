@@ -15,9 +15,26 @@
             padding: 8px;
             text-align: left;
         }
+
         .out-of-stock {
             background-color: #4682b4; /* Steel blue background */
-            color: #ffffff; /* White text color */        }
+            color: #ffffff; /* White text color */
+        }
+
+        .arrow {
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+        }
+
+        .up {
+            transform: rotate(-135deg);
+        }
+
+        .down {
+            transform: rotate(45deg);
+        }
     </style>
 
 </head>
@@ -29,8 +46,11 @@
     <br>
     <!-- Input and Button -->
     <textarea id="type-input" rows="2" cols="30" placeholder="Enter product type..."></textarea>
-    <button id="filter-button">Filter Products</button>
     <input type="checkbox" id="stock"> <label for="stock">Show out-of-stock items</label>
+    <button id="sortByNameAsc">Sort by name <i class="arrow up"></i></button>
+    <button id="sortByNameDesc">Sort by name <i class="arrow down"></i></button>
+    <button id="sortByPriceAsc">Sort by price <i class="arrow up"></i></button>
+    <button id="sortByPriceDesc">Sort by price <i class="arrow down"></i></button>
 
     <table id="data-table">
         <thead>
@@ -44,6 +64,16 @@
         </tr>
         </thead>
     </table>
+    <label> Add Item </label>
+    <form id="Add item">
+        <input type="text" id="name" placeholder="name">
+        <input type="text" id="type" placeholder="type">
+        <input type="text" id="description" placeholder="description">
+        <input type="text" id="price" placeholder="price">
+        <input type="text" id="quantity" placeholder="quantity">
+        <input type="text" id="color" placeholder="color">
+        <button type="button" onclick="storeInput()"> Confirm </button>
+    </form>
 </div>
 <script src="datas.js"></script>
 <script src="exo7.js"></script>
