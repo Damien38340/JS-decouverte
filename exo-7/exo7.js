@@ -11,15 +11,34 @@ let addColor = {
 // }
 
 for (let product of jsonDatas) {
-    product.color = addColor[product.type];
+    for (let item of product.items) {
+        item.color = addColor[product.type];
+    }
 }
 
-// for (let key in jsonDatas) {
-//     console.log(jsonDatas[key]);
+for (let key in jsonDatas) {
+    console.log(jsonDatas[key]);
+}
+//
+// for (let item of jsonDatas){
+//     console.log(item);
 // }
 
 let isInitialLoad = true;
 
+// Flatten the nested structure using nested loops
+// function getFlattenedItems(products) {
+//     let flattenedItems = [];
+//     products.forEach(category => {
+//         category.items.forEach(item => {
+//             flattenedItems.push({
+//                 ...item,
+//                 type: category.type
+//             });
+//         });
+//     });
+//     return flattenedItems;
+// }
 // Function to populate table
 function displayProducts(products) {
     const tableBody = document.querySelector('#data-table');
@@ -30,42 +49,47 @@ function displayProducts(products) {
     }
 
     products.forEach(item => {
-        let row = document.createElement('tr');
-        // Create table cells
-        let nameCell = document.createElement('td');
-        nameCell.textContent = item.name;
-        row.appendChild(nameCell);
+        let itemsType = item.items;
+        itemsType.forEach(property => {
+            let row = document.createElement('tr');
+            // Create table cells
+            let nameCell = document.createElement('td');
+            nameCell.textContent = property.name;
+            row.appendChild(nameCell);
 
-        let typeCell = document.createElement('td');
-        typeCell.textContent = item.type;
-        row.appendChild(typeCell);
+            let typeCell = document.createElement('td');
+            typeCell.textContent = item.type;
+            row.appendChild(typeCell);
 
-        let descriptionCell = document.createElement('td');
-        descriptionCell.textContent = item.description;
-        row.appendChild(descriptionCell);
+            let descriptionCell = document.createElement('td');
+            descriptionCell.textContent = property.description;
+            row.appendChild(descriptionCell);
 
-        let priceCell = document.createElement('td');
-        priceCell.textContent = `$${item.price}`;
-        row.appendChild(priceCell);
+            let priceCell = document.createElement('td');
+            priceCell.textContent = `$${property.price}`;
+            row.appendChild(priceCell);
 
-        let quantityCell = document.createElement('td');
-        quantityCell.textContent = item.quantity;
-        row.appendChild(quantityCell);
+            let quantityCell = document.createElement('td');
+            quantityCell.textContent = property.quantity;
+            row.appendChild(quantityCell);
 
-        let colorCell = document.createElement('td');
-        colorCell.textContent = item.color || 'N/A';  // If color is not defined
-        row.appendChild(colorCell);
+            let colorCell = document.createElement('td');
+            colorCell.textContent = property.color || 'N/A';  // If color is not defined
+            row.appendChild(colorCell);
 
-        // color the out-of-stock items
-        if (item.quantity === 0) {
-            row.classList.add('out-of-stock');
-        }
+            // color the out-of-stock items
+            if (property.quantity === 0) {
+                row.classList.add('out-of-stock');
+            }
+            // Append row to table body
+            tableBody.appendChild(row);
 
-        // Append row to table body
-        tableBody.appendChild(row);
+        })
+
     });
     isInitialLoad = false;
 }
+
 // Initial call to display all products
 displayProducts(jsonDatas);
 
@@ -83,12 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function filterProducts() {
         const type = typeInput.value.trim().toLowerCase();
         let filteredProducts = jsonDatas;
+
         if (type !== "") {
             filteredProducts = filteredProducts.filter(item => item.type.toLowerCase() === type);
         }
 
         if (!showOutOfStock.checked) {
-            filteredProducts = filteredProducts.filter(item => item.quantity > 0);
+            filteredProducts.forEach(item => {
+                item.items = item.items.filter(property => property.quantity > 0);
+            }
+            )
         }
 
         if (currentSortOrder === 'name asc') {
@@ -135,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function storeInput(){
+function storeInput() {
 
     const name = document.getElementById("name").value;
     const type = document.getElementById("type").value;
